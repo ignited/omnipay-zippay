@@ -10,8 +10,8 @@ use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
  */
 abstract class AbstractRequest extends BaseAbstractRequest
 {
-    protected $liveEndpoint = 'https://api.example.com';
-    protected $testEndpoint = 'https://api-test.example.com';
+    protected $liveEndpoint = 'https://api.zipmoney.com.au/merchant/v1';
+    protected $testEndpoint = 'https://api.sandbox.zipmoney.com.au/merchant/v1';
 
     public function getKey()
     {
@@ -23,10 +23,31 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->setParameter('key', $value);
     }
 
+    public function getApiKey()
+    {
+        return $this->getParameter('apiKey');
+    }
+
+    public function setApiKey($value)
+    {
+        return $this->setParameter('apiKey', $value);
+    }
+
+    public function getHeaders()
+    {
+        return [
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getApiKey(),
+            'Zip-Version' => '2017-03-01',
+        ];
+    }
+
     public function sendData($data)
     {
+        $headers = $this->getHeaders();
+
         $url = $this->getEndpoint().'?'.http_build_query($data, '', '&');
-        $response = $this->httpClient->request('GET', $url);
+        $response = $this->httpClient->request('GET', $url, $headers);
 
         $data = json_decode($response->getBody(), true);
 
@@ -35,11 +56,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
     protected function getBaseData()
     {
-        return [
-            'transaction_id' => $this->getTransactionId(),
-            'expire_date' => $this->getCard()->getExpiryDate('mY'),
-            'start_date' => $this->getCard()->getStartDate('mY'),
-        ];
+        return [];
     }
 
     protected function getEndpoint()
