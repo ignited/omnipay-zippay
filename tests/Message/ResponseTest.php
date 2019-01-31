@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\Skeleton\Message;
+namespace Omnipay\ZipPay\Message;
 
 use Omnipay\Tests\TestCase;
 

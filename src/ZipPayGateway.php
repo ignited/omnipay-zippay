@@ -1,24 +1,24 @@
 <?php
 
-namespace Omnipay\Skeleton;
+namespace Omnipay\ZipPay;
 
 use Omnipay\Common\AbstractGateway;
 
 /**
- * Skeleton Gateway
+ * ZipPay Gateway
  */
-class SkeletonGateway extends AbstractGateway
+class ZipPayGateway extends AbstractGateway
 {
     public function getName()
     {
-        return 'Skeleton';
+        return 'ZipPay';
     }
 
     public function getDefaultParameters()
     {
         return array(
             'key' => '',
-            'testMode' => false,
+            'testMode' => true, //TODO should this be here?
         );
     }
 
@@ -37,6 +37,6 @@ class SkeletonGateway extends AbstractGateway
      */
     public function authorize(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\Skeleton\Message\AuthorizeRequest', $parameters);
+        return $this->createRequest('\Omnipay\ZipPay\Message\AuthorizeRequest', $parameters);
     }
 }

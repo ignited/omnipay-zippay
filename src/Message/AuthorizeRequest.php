@@ -1,5 +1,6 @@
 <?php
-namespace Omnipay\Skeleton\Message;
+namespace Omnipay\ZipPay\Message;
+
 /**
  * Authorize Request
  *

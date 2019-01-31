@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\Skeleton\Message;
+namespace Omnipay\ZipPay\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
@@ -27,5 +27,4 @@ class Response extends AbstractResponse
             return $this->data['reference'];
         }
     }
-
 }

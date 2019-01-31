@@ -1,21 +1,21 @@
 {
-    "name": ":vendor/omnipay-:gateway",
-    "description": ":package_description",
+    "name": "ignited/omnipay-zippay",
+    "description": "Provides ZipPay support for Omnipay payment processing library",
     "keywords": [
         "omnipay",
-        ":gateway"
+        "ZipPay",
+        "zip"
     ],
-    "homepage": "https://github.com/:vendor/omnipay-:gateway",
+    "homepage": "https://github.com/ignited/omnipay-zippay",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": ":author_website"
+            "name": "Daniel Condie",
+            "email": "danielcondie@ignitedlabs.com.au"
         }
     ],
     "require": {
-        "omnipay/common": "v3.0-alpha.2"
+        "omnipay/common": "~3.0"
     },
     "require-dev": {
         "omnipay/tests": "~3.0",
@@ -24,12 +24,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Omnipay\\Skeleton\\": "src"
+            "Omnipay\\ZipPay\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "League\\Skeleton\\Test\\": "tests"
+            "Omnipay\\ZipPay\\Test\\": "tests"
         }
     },
     "scripts": {

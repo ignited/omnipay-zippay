@@ -1,20 +1,20 @@
 <?php
 
-namespace Omnipay\Skeleton;
+namespace Omnipay\ZipPay;
 
 use Omnipay\Tests\GatewayTestCase;
 use Omnipay\Common\CreditCard;
 
 class GatewayTest extends GatewayTestCase
 {
-    /** @var SkeletonGateway */
+    /** @var ZipPayGateway */
     protected $gateway;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->gateway = new SkeletonGateway($this->getHttpClient(), $this->getHttpRequest());
+        $this->gateway = new ZipPayGateway($this->getHttpClient(), $this->getHttpRequest());
 
         $this->options = array(
             'amount' => '10.00',

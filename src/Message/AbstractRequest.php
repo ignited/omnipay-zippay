@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\Skeleton\Message;
+namespace Omnipay\ZipPay\Message;
 
 use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
 
@@ -26,7 +26,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
     public function sendData($data)
     {
         $url = $this->getEndpoint().'?'.http_build_query($data, '', '&');
-        $response = $this->httpClient->get($url);
+        $response = $this->httpClient->request('GET', $url);
 
         $data = json_decode($response->getBody(), true);
 
