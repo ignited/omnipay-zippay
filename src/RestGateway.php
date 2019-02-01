@@ -20,7 +20,7 @@ class RestGateway extends AbstractGateway
         return array(
             'apiKey' => '',
             'key' => '',
-            'testMode' => true, //TODO should this be here?
+            'testMode' => true,
         );
     }
 
