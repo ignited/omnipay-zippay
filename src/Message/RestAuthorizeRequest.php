@@ -61,6 +61,21 @@ class RestAuthorizeRequest extends AbstractRequest
         return $this->setParameter('reference', $value);
     }
 
+    public function getMeta()
+    {
+        return $this->getParameter('meta');
+    }
+
+    public function setMeta($value)
+    {
+        return $this->setParameter('meta', $value);
+    }
+
+    public function hasMetaData()
+    {
+        return !empty($this->getMeta());
+    }
+
     public function getData()
     {
         $this->validate(
@@ -76,7 +91,10 @@ class RestAuthorizeRequest extends AbstractRequest
         $data['shopper']['billing_address'] = $this->getBillingAddress();
         $data['order'] = $this->getOrder();
         $data['config'] = $this->getConfig();
-        $data['metadata'] = $this->getMetaData();
+
+        if ($this->hasMetaData()) {
+            $data['metadata'] = $this->getMetaData();
+        }
 
         return $data;
     }
@@ -147,7 +165,7 @@ class RestAuthorizeRequest extends AbstractRequest
 
     public function getMetaData()
     {
-        return [];
+        return $this->getMeta();
     }
 
     public function getBillingAddressLine1()
