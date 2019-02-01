@@ -25,17 +25,17 @@ class RestGatewayTest extends GatewayTestCase
 
     protected function getReturnUrl()
     {
-        return 'https://google.com.au';
+        return 'https://my.sandbox.zipmoney.com.au/?co=co_6EwaifOfG4IYHPNhpzQGu2&m=687118c9-d055-4a2e-9922-002f42a50dfc';
     }
 
     public function testAuthorizeSuccess()
     {
-        //TODO $this->setMockHttpResponse('mocked-response.txt');
+        $this->setMockHttpResponse('RestAuthorizeResponse.txt');
 
         $response = $this->gateway->authorize($this->options)->send();
 
         $this->assertInstanceOf(RestAuthorizeResponse::class, $response);
-        $this->assertFalse($response->isSuccessful());
+        $this->assertTrue($response->isSuccessful());
         $this->assertFalse($response->isPending());
         $this->assertTrue($response->isRedirect());
         $this->assertEquals($this->getReturnUrl(), $response->getRedirectUrl());

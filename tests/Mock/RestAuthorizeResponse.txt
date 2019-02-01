@@ -1,0 +1,16 @@
+HTTP/1.1 201
+status: 201
+Date: Thu, 31 Jan 2019 23:18:15 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Location: http://api.sandbox.zipmoney.com.au/merchant/v1/checkouts/co_6EwaifOfG4IYHPNhpzQGu2
+X-Frame-Options: deny
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=2592000; includeSubDomains; preload
+Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+Server: cloudflare
+CF-RAY: 4a1fe57a596c0b1a-SYD
+
+{"id":"co_6EwaifOfG4IYHPNhpzQGu2","uri":"https://my.sandbox.zipmoney.com.au/?co=co_6EwaifOfG4IYHPNhpzQGu2&m=687118c9-d055-4a2e-9922-002f42a50dfc","type":"standard","shopper":{"title":"Mr","first_name":"John","last_name":"Smith","middle_name":"Joe","phone":"0400000000","email":"test@emailaddress.com","birth_date":"2017-10-10","gender":"Male","statistics":{"account_created":"2015-09-09T19:58:47.697Z","sales_total_count":0,"sales_total_amount":450.0,"sales_avg_amount":0.0,"sales_max_amount":0.0,"refunds_total_amount":0.0,"previous_chargeback":false,"currency":"AUD"},"billing_address":{"line1":"10 Test st","city":"Sydney","state":"NSW","postal_code":"2000","country":"AU","first_name":"John","last_name":"Smith"}},"order":{"reference":"testdarren124","amount":200.0,"currency":"AUD","shipping":{"pickup":false,"tracking":{"uri":"http://tracking.com?code=CBX-343","number":"CBX-343","carrier":"tracking.com"},"address":{"line1":"10 Test st","city":"Sydney","state":"NSW","postal_code":"2000","country":"AU"}},"items":[{"name":"Nike shoes","amount":200.0,"reference":"1","quantity":1,"type":"sku"}]},"features":{},"metadata":{},"created":"2019-01-31T23:18:15.4449188Z","state":"created","config":{"redirect_uri":"http://www.google.com/zipmoney/approved"}}

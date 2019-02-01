@@ -1,6 +1,7 @@
 <?php
 namespace Omnipay\ZipPay\Message;
 
+use Omnipay\Common\ItemInterface;
 use Omnipay\ZipPay\Message\RestAuthorizeResponse;
 
 /**
@@ -10,6 +11,16 @@ use Omnipay\ZipPay\Message\RestAuthorizeResponse;
  */
 class RestAuthorizeRequest extends AbstractRequest
 {
+    public function getEndpoint()
+    {
+        return parent::getEndpoint() . '/checkouts';
+    }
+
+    public function getHttpMethod()
+    {
+        return 'POST';
+    }
+
     public function getFirstName()
     {
         return $this->getCard()->getFirstName();
@@ -57,8 +68,6 @@ class RestAuthorizeRequest extends AbstractRequest
             'returnUrl'
         );
 
-        //TODO validate billing address, order, order.items
-
         $data = $this->getBaseData();
 
         $data['shopper']['first_name'] = $this->getFirstName();
@@ -98,7 +107,28 @@ class RestAuthorizeRequest extends AbstractRequest
 
     public function getOrderItems()
     {
-        return [];
+        $data = [];
+        $items = $this->getItems();
+
+        if ($items) {
+            foreach ($items as $item) {
+                $data[] = $this->convertItemToItemData($item);
+            }
+        }
+
+        return $data;
+    }
+
+    protected function convertItemToItemData(ItemInterface $item)
+    {
+        return [
+            'name' => $item->getName(),
+            'amount' => $item->getQuantity() * $this->formatCurrency($item->getPrice()),
+            'quantity' => $item->getQuantity(),
+            'type' => 'sku',
+            'reference' => '', //TODO
+            'image_uri' => '', //TODO
+        ];
     }
 
     public function getOrderShippingDetails()
@@ -137,7 +167,7 @@ class RestAuthorizeRequest extends AbstractRequest
 
     public function getBillingAddressPostalCode()
     {
-        return $this->getBillingAddressPostalCode();
+        return $this->getCard()->getBillingPostcode();
     }
 
     public function getBillingAddressCountry()
@@ -155,8 +185,8 @@ class RestAuthorizeRequest extends AbstractRequest
         return $this->getCard()->getBillingLastName();
     }
 
-    protected function createResponse($data)
+    protected function createResponse($data, $headers = [])
     {
-        return $this->response = new RestAuthorizeResponse($this, $data);
+        return $this->response = new RestAuthorizeResponse($this, $data, $headers);
     }
 }

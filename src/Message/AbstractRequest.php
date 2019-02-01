@@ -46,12 +46,26 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         $headers = $this->getHeaders();
 
-        $url = $this->getEndpoint().'?'.http_build_query($data, '', '&');
-        $response = $this->httpClient->request('GET', $url, $headers);
+        $url = $this->getEndpoint();
+        $body = null;
+        if ($this->getHttpMethod() === 'GET') {
+            $url = $this->getEndpoint().'?'.http_build_query($data, '', '&');
+        } else {
+            $body = json_encode($data);
+        }
+
+        $response = $this->httpClient->request($this->getHttpMethod(), $url, $headers, $body);
+
+        $responseHeaders = $response->getHeaders();
 
         $data = json_decode($response->getBody(), true);
 
-        return $this->createResponse($data);
+        return $this->createResponse($data, $responseHeaders);
+    }
+
+    public function getHttpMethod()
+    {
+        return 'GET';
     }
 
     protected function getBaseData()
@@ -64,8 +78,8 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
     }
 
-    protected function createResponse($data)
+    protected function createResponse($data, $headers = [])
     {
-        return $this->response = new Response($this, $data);
+        return $this->response = new Response($this, $data, $headers);
     }
 }
