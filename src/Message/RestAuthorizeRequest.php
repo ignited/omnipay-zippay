@@ -1,7 +1,7 @@
 <?php
 namespace Omnipay\ZipPay\Message;
 
-use Omnipay\Common\ItemInterface;
+use Omnipay\ZipPay\ItemInterface;
 use Omnipay\ZipPay\Message\RestAuthorizeResponse;
 
 /**
@@ -144,8 +144,8 @@ class RestAuthorizeRequest extends AbstractRequest
             'amount' => $item->getQuantity() * $this->formatCurrency($item->getPrice()),
             'quantity' => $item->getQuantity(),
             'type' => 'sku',
-            'reference' => '', //TODO
-            'image_uri' => '', //TODO
+            'reference' => $item->getReference(),
+            'image_uri' => $item->getImageUri(),
         ];
     }
 
