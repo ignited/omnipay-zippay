@@ -67,6 +67,27 @@ class RestGatewayTest extends GatewayTestCase
 
     //TODO test any failure cases for completeAuthorize
 
+    public function testCaptureSuccess()
+    {
+        //TODO
+    }
+
+    //TODO test any failure cases for capture
+
+    public function testCancelSuccess()
+    {
+        //TODO
+    }
+
+    //TODO test any failure cases for cancel
+
+    public function testRefundSuccess()
+    {
+        //TODO
+    }
+
+    //TODO test any failure cases for refund
+
     private function getOptionsForAuthorize()
     {
         return [
