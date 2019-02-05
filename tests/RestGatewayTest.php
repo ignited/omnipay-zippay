@@ -4,6 +4,7 @@ namespace Omnipay\ZipPay;
 
 use Omnipay\Tests\GatewayTestCase;
 use Omnipay\ZipPay\Message\RestAuthorizeResponse;
+use Omnipay\ZipPay\Message\RestCompleteAuthorizeResponse;
 
 class RestGatewayTest extends GatewayTestCase
 {
@@ -15,12 +16,6 @@ class RestGatewayTest extends GatewayTestCase
         parent::setUp();
 
         $this->gateway = new RestGateway($this->getHttpClient(), $this->getHttpRequest());
-
-        $this->options = array(
-            'amount' => '10.00',
-            'card' => $this->getValidCard(),
-            'returnUrl' => $this->getReturnUrl(),
-        );
     }
 
     protected function getReturnUrl()
@@ -28,16 +23,68 @@ class RestGatewayTest extends GatewayTestCase
         return 'https://my.sandbox.zipmoney.com.au/?co=co_6EwaifOfG4IYHPNhpzQGu2&m=687118c9-d055-4a2e-9922-002f42a50dfc';
     }
 
+    protected function getCheckoutId()
+    {
+        return 'co_6EwaifOfG4IYHPNhpzQGu2';
+    }
+
+    protected function getCurrency()
+    {
+        return 'AUD';
+    }
+
+    protected function getAmount()
+    {
+        return '200.00';
+    }
+
     public function testAuthorizeSuccess()
     {
         $this->setMockHttpResponse('RestAuthorizeResponse.txt');
 
-        $response = $this->gateway->authorize($this->options)->send();
+        $response = $this->gateway->authorize($this->getOptionsForAuthorize())->send();
 
         $this->assertInstanceOf(RestAuthorizeResponse::class, $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertFalse($response->isPending());
         $this->assertTrue($response->isRedirect());
         $this->assertEquals($this->getReturnUrl(), $response->getRedirectUrl());
+    }
+
+    //TODO test any failure cases for authorize
+
+    public function testCompleteAuthorizeSuccess()
+    {
+        $this->setMockHttpResponse('RestCompleteAuthorizeResponse.txt');
+
+        $response = $this->gateway->completeAuthorize($this->getOptionsForCompleteAuthorize())->send();
+
+        $this->assertInstanceOf(RestCompleteAuthorizeResponse::class, $response);
+        $this->assertTrue($response->isSuccessful());
+        $this->assertFalse($response->isPending());
+        $this->assertFalse($response->isRedirect());
+    }
+
+    //TODO test any failure cases for completeAuthorize
+
+    private function getOptionsForAuthorize()
+    {
+        return [
+            'amount' => $this->getAmount(),
+            'currency' => $this->getCurrency(),
+            'card' => $this->getValidCard(),
+            'returnUrl' => $this->getReturnUrl(),
+        ];
+    }
+
+    private function getOptionsForCompleteAuthorize()
+    {
+        return [
+            'amount' => $this->getAmount(),
+            'authorityType' => 'checkout_id',
+            'authorityValue' => $this->getCheckoutId(),
+            'captureFunds' => false,
+            'currency' => $this->getCurrency(),
+        ];
     }
 }

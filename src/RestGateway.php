@@ -4,6 +4,7 @@ namespace Omnipay\ZipPay;
 
 use Omnipay\Common\AbstractGateway;
 use Omnipay\ZipPay\Message\RestAuthorizeRequest;
+use Omnipay\ZipPay\Message\RestCompleteAuthorizeRequest;
 
 /**
  * ZipPay Gateway
@@ -50,5 +51,10 @@ class RestGateway extends AbstractGateway
     public function authorize(array $parameters = array())
     {
         return $this->createRequest(RestAuthorizeRequest::class, $parameters);
+    }
+
+    public function completeAuthorize(array $options = array())
+    {
+        return $this->createRequest(RestCompleteAuthorizeRequest::class, $options);
     }
 }

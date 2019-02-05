@@ -80,6 +80,7 @@ class RestAuthorizeRequest extends AbstractRequest
     {
         $this->validate(
             'amount',
+            'currency',
             'returnUrl'
         );
 
