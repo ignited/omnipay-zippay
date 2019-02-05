@@ -14,7 +14,8 @@ class ResponseTest extends TestCase
         $response = new Response(
             $this->getMockRequest(),
             ['example' => 'value', 'foo' => 'bar'],
-            $mockHeaders
+            $mockHeaders,
+            200
         );
         $this->assertEquals(array('example' => 'value', 'foo' => 'bar'), $response->getData());
         $this->assertEquals($mockHeaders, $response->getHeaders());

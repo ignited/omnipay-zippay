@@ -86,8 +86,8 @@ class RestCompleteAuthorizeRequest extends AbstractRequest
         ];
     }
 
-    protected function createResponse($data, $headers = [])
+    protected function createResponse($data, $headers = [], $status = 404)
     {
-        return $this->response = new RestCompleteAuthorizeResponse($this, $data, $headers);
+        return $this->response = new RestCompleteAuthorizeResponse($this, $data, $headers, $status);
     }
 }

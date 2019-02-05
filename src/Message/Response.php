@@ -11,12 +11,14 @@ use Omnipay\Common\Message\RequestInterface;
 class Response extends AbstractResponse
 {
     protected $headers;
+    protected $status;
 
-    public function __construct(RequestInterface $request, $data, $headers)
+    public function __construct(RequestInterface $request, $data, $headers, $status)
     {
         $this->request = $request;
         $this->data = $data;
         $this->headers = $headers;
+        $this->status = $status;
     }
 
     public function isSuccessful()
@@ -32,7 +34,7 @@ class Response extends AbstractResponse
 
     public function getCode()
     {
-        return $this->getHeader('status');
+        return $this->status;
     }
 
     public function getTransactionId()

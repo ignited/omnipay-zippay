@@ -60,7 +60,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
         $data = json_decode($response->getBody(), true);
 
-        return $this->createResponse($data, $responseHeaders);
+        return $this->createResponse($data, $responseHeaders, $response->getStatusCode());
     }
 
     public function getHttpMethod()
@@ -78,7 +78,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
         return $this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint;
     }
 
-    protected function createResponse($data, $headers = [])
+    protected function createResponse($data, $headers = [], $status = 404)
     {
         return $this->response = new Response($this, $data, $headers);
     }

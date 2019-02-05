@@ -204,8 +204,8 @@ class RestAuthorizeRequest extends AbstractRequest
         return $this->getCard()->getBillingLastName();
     }
 
-    protected function createResponse($data, $headers = [])
+    protected function createResponse($data, $headers = [], $status = 404)
     {
-        return $this->response = new RestAuthorizeResponse($this, $data, $headers);
+        return $this->response = new RestAuthorizeResponse($this, $data, $headers, $status);
     }
 }
