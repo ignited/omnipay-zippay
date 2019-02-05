@@ -4,7 +4,10 @@ namespace Omnipay\ZipPay;
 
 use Omnipay\Tests\GatewayTestCase;
 use Omnipay\ZipPay\Message\RestAuthorizeResponse;
+use Omnipay\ZipPay\Message\RestCaptureResponse;
 use Omnipay\ZipPay\Message\RestCompleteAuthorizeResponse;
+use Omnipay\ZipPay\Message\RestCancelResponse;
+use Omnipay\ZipPay\Message\RestRefundResponse;
 
 class RestGatewayTest extends GatewayTestCase
 {
@@ -38,6 +41,11 @@ class RestGatewayTest extends GatewayTestCase
         return '200.00';
     }
 
+    protected function getChargeId()
+    {
+        return 'ch_2wOG31hdtqzPlJpBn5zJ24';
+    }
+
     public function testAuthorizeSuccess()
     {
         $this->setMockHttpResponse('RestAuthorizeResponse.txt');
@@ -69,21 +77,42 @@ class RestGatewayTest extends GatewayTestCase
 
     public function testCaptureSuccess()
     {
-        //TODO
+        $this->setMockHttpResponse('RestCaptureResponse.txt');
+
+        $response = $this->gateway->capture($this->getOptionsForCapture())->send();
+
+        $this->assertInstanceOf(RestCaptureResponse::class, $response);
+        $this->assertTrue($response->isSuccessful());
+        $this->assertFalse($response->isPending());
+        $this->assertFalse($response->isRedirect());
     }
 
     //TODO test any failure cases for capture
 
     public function testCancelSuccess()
     {
-        //TODO
+        $this->setMockHttpResponse('RestCancelResponse.txt');
+
+        $response = $this->gateway->void($this->getOptionsForCancel())->send();
+
+        $this->assertInstanceOf(RestCancelResponse::class, $response);
+        $this->assertTrue($response->isSuccessful());
+        $this->assertFalse($response->isPending());
+        $this->assertFalse($response->isRedirect());
     }
 
     //TODO test any failure cases for cancel
 
     public function testRefundSuccess()
     {
-        //TODO
+        $this->setMockHttpResponse('RestRefundResponse.txt');
+
+        $response = $this->gateway->refund($this->getOptionsForRefund())->send();
+
+        $this->assertInstanceOf(RestRefundResponse::class, $response);
+        $this->assertTrue($response->isSuccessful());
+        $this->assertFalse($response->isPending());
+        $this->assertFalse($response->isRedirect());
     }
 
     //TODO test any failure cases for refund
@@ -106,6 +135,31 @@ class RestGatewayTest extends GatewayTestCase
             'authorityValue' => $this->getCheckoutId(),
             'captureFunds' => false,
             'currency' => $this->getCurrency(),
+        ];
+    }
+
+    private function getOptionsForCapture()
+    {
+        return [
+            'chargeId' => $this->getChargeId(),
+            'amount' => $this->getAmount(),
+            'is_partial_capture' => false,
+        ];
+    }
+
+    private function getOptionsForCancel()
+    {
+        return [
+            'chargeId' => $this->getChargeId(),
+        ];
+    }
+
+    private function getOptionsForRefund()
+    {
+        return [
+            'chargeId' => $this->getChargeId(),
+            'amount' => $this->getAmount(),
+            'reason' => 'Unwanted item',
         ];
     }
 }

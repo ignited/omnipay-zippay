@@ -1,0 +1,16 @@
+HTTP/1.1 201
+status: 201
+Date: Tue, 05 Feb 2019 22:46:44 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Location: http://api.sandbox.zipmoney.com.au/merchant/v1/refunds/rf_tNxyBLi9jg337IsyCOLNqD
+X-Frame-Options: deny
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=2592000; includeSubDomains; preload
+Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+Server: cloudflare
+CF-RAY: 4a48ea2d6be419c8-SYD
+
+{"id":"rf_tNxyBLi9jg337IsyCOLNqD","charge_id":"ch_RWfc1uiRgKg94YsU3P6a41","reason":"Unwanted item","amount":200.0,"created":"2019-02-05T22:46:44.1491844Z","metadata":{}}

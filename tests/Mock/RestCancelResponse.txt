@@ -1,0 +1,16 @@
+HTTP/1.1 200
+status: 200
+Date: Tue, 05 Feb 2019 22:34:24 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Frame-Options: deny
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=2592000; includeSubDomains; preload
+Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+Server: cloudflare
+CF-RAY: 4a48d81cae9a65e7-SYD
+Content-Encoding: gzip
+
+{"id":"ch_KZekk9jjlKzUJj6BHtrSB1","reference":"nsadioghsdgoi611","amount":200.0,"currency":"AUD","state":"cancelled","captured_amount":0.000000,"refunded_amount":0.000000,"created_date":"2019-02-05T22:30:56.49Z","order":{"reference":"testdarren611","shipping":{"pickup":false,"tracking":{"uri":"http://tracking.com?code=CBX-343","number":"CBX-343","carrier":"tracking.com"},"address":{"line1":"10 Test st","city":"Sydney","state":"NSW","postal_code":"2000","country":"AU"}},"items":[{"name":"Nike shoes","amount":200.0,"reference":"1","quantity":1,"type":"sku"}]},"metadata":{},"customer":{"id":"54832","first_name":"John","last_name":"Smith","email":"test@emailaddress.com"},"receipt_number":546487,"product":"zipPay"}
