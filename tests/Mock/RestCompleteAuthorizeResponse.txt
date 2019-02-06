@@ -13,4 +13,4 @@ Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi
 Server: cloudflare
 CF-RAY: 4a41ca9a6ba16593-SYD
 
-{"id": "co_6EwaifOfG4IYHPNhpzQGu2","reference": "nsadioghsdgoihsd","amount": 200.0,"currency": "AUD","state": "authorised","captured_amount": 0.000000,"refunded_amount": 0.000000,"created_date": "2019-02-05T02:01:50.713Z","order": {"reference": "testdarren124","items": [{"name": "Nike shoes","amount": 200.0,"reference": "1","quantity": 1,"type": "sku"}]},"metadata": {},"customer": {"id": "58326","first_name": "John","last_name": "Smith","email": "test@emailaddress.com"},"receipt_number": 591348,"product": "zipPay"}
+{"id": "ch_9dTPzPewUAFIRPrIVx4qx1","reference": "nsadioghsdgoihsd","amount": 200.0,"currency": "AUD","state": "authorised","captured_amount": 0.000000,"refunded_amount": 0.000000,"created_date": "2019-02-05T02:01:50.713Z","order": {"reference": "testdarren124","items": [{"name": "Nike shoes","amount": 200.0,"reference": "1","quantity": 1,"type": "sku"}]},"metadata": {},"customer": {"id": "58326","first_name": "John","last_name": "Smith","email": "test@emailaddress.com"},"receipt_number": 591348,"product": "zipPay"}

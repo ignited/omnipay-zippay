@@ -9,5 +9,8 @@ use Omnipay\ZipPay\Message\Response;
  */
 class RestAuthorizeResponse extends Response
 {
-
+    public function isSuccessful()
+    {
+        return false;
+    }
 }

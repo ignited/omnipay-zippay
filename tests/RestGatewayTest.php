@@ -53,7 +53,7 @@ class RestGatewayTest extends GatewayTestCase
         $response = $this->gateway->authorize($this->getOptionsForAuthorize())->send();
 
         $this->assertInstanceOf(RestAuthorizeResponse::class, $response);
-        $this->assertTrue($response->isSuccessful());
+        $this->assertFalse($response->isSuccessful());
         $this->assertFalse($response->isPending());
         $this->assertTrue($response->isRedirect());
         $this->assertEquals($this->getReturnUrl(), $response->getRedirectUrl());
