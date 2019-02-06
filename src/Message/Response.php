@@ -44,7 +44,7 @@ class Response extends AbstractResponse
 
     public function getTransactionReference()
     {
-        return $this->getDataField('order.reference');
+        return $this->getDataField('reference');
     }
 
     public function isRedirect()
