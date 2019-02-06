@@ -37,14 +37,9 @@ class Response extends AbstractResponse
         return $this->status;
     }
 
-    public function getTransactionId()
-    {
-        return $this->getDataField('id');
-    }
-
     public function getTransactionReference()
     {
-        return $this->getDataField('reference');
+        return $this->getDataField('id');
     }
 
     public function isRedirect()
