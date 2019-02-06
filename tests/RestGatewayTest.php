@@ -143,7 +143,6 @@ class RestGatewayTest extends GatewayTestCase
         return [
             'chargeId' => $this->getChargeId(),
             'amount' => $this->getAmount(),
-            'is_partial_capture' => false,
         ];
     }
 

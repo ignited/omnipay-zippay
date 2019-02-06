@@ -23,24 +23,13 @@ class RestCaptureRequest extends AbstractRequest
         return $this->setParameter('chargeId', $value);
     }
 
-    public function getIsPartialCapture()
-    {
-        return $this->getParameter('is_partial_capture');
-    }
-
-    public function setIsPartialCapture($value)
-    {
-        return $this->setParameter('is_partial_capture', $value);
-    }
-
     public function getData()
     {
-        $this->validate('chargeId', 'amount', 'is_partial_capture');
+        $this->validate('chargeId', 'amount');
 
         $data = $this->getBaseData();
 
         $data['amount'] = $this->getAmount();
-        $data['is_partial_capture'] = $this->getIsPartialCapture();
 
         return $data;
     }
