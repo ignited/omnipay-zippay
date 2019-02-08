@@ -59,7 +59,19 @@ class RestGatewayTest extends GatewayTestCase
         $this->assertEquals($this->getReturnUrl(), $response->getRedirectUrl());
     }
 
-    //TODO test any failure cases for authorize
+    public function testAuthorizeFailure()
+    {
+        $this->setMockHttpResponse('RestAuthorizeFailedResponse.txt');
+
+        $response = $this->gateway->authorize($this->getOptionsForAuthorize())->send();
+
+        $this->assertInstanceOf(RestAuthorizeResponse::class, $response);
+        $this->assertFalse($response->isSuccessful());
+        $this->assertFalse($response->isPending());
+        $this->assertFalse($response->isRedirect());
+        $this->assertNotNull($response->getErrorCode());
+        $this->assertNotNull($response->getMessage());
+    }
 
     public function testCompleteAuthorizeSuccess()
     {
@@ -73,7 +85,19 @@ class RestGatewayTest extends GatewayTestCase
         $this->assertFalse($response->isRedirect());
     }
 
-    //TODO test any failure cases for completeAuthorize
+    public function testCompleteAuthorizeFailure()
+    {
+        $this->setMockHttpResponse('RestCompleteAuthorizeFailedResponse.txt');
+
+        $response = $this->gateway->completeAuthorize($this->getOptionsForCompleteAuthorize())->send();
+
+        $this->assertInstanceOf(RestCompleteAuthorizeResponse::class, $response);
+        $this->assertFalse($response->isSuccessful());
+        $this->assertFalse($response->isPending());
+        $this->assertFalse($response->isRedirect());
+        $this->assertNotNull($response->getErrorCode());
+        $this->assertNotNull($response->getMessage());
+    }
 
     public function testCaptureSuccess()
     {
@@ -87,7 +111,19 @@ class RestGatewayTest extends GatewayTestCase
         $this->assertFalse($response->isRedirect());
     }
 
-    //TODO test any failure cases for capture
+    public function testCaptureFailure()
+    {
+        $this->setMockHttpResponse('RestCaptureFailedResponse.txt');
+
+        $response = $this->gateway->capture($this->getOptionsForCapture())->send();
+
+        $this->assertInstanceOf(RestCaptureResponse::class, $response);
+        $this->assertFalse($response->isSuccessful());
+        $this->assertFalse($response->isPending());
+        $this->assertFalse($response->isRedirect());
+        $this->assertNotNull($response->getErrorCode());
+        $this->assertNotNull($response->getMessage());
+    }
 
     public function testCancelSuccess()
     {
@@ -101,7 +137,19 @@ class RestGatewayTest extends GatewayTestCase
         $this->assertFalse($response->isRedirect());
     }
 
-    //TODO test any failure cases for cancel
+    public function testCancelFailure()
+    {
+        $this->setMockHttpResponse('RestCancelFailedResponse.txt');
+
+        $response = $this->gateway->void($this->getOptionsForCancel())->send();
+
+        $this->assertInstanceOf(RestCancelResponse::class, $response);
+        $this->assertFalse($response->isSuccessful());
+        $this->assertFalse($response->isPending());
+        $this->assertFalse($response->isRedirect());
+        $this->assertNotNull($response->getErrorCode());
+        $this->assertNotNull($response->getMessage());
+    }
 
     public function testRefundSuccess()
     {
@@ -115,7 +163,19 @@ class RestGatewayTest extends GatewayTestCase
         $this->assertFalse($response->isRedirect());
     }
 
-    //TODO test any failure cases for refund
+    public function testRefundFailure()
+    {
+        $this->setMockHttpResponse('RestRefundFailedResponse.txt');
+
+        $response = $this->gateway->refund($this->getOptionsForRefund())->send();
+
+        $this->assertInstanceOf(RestRefundResponse::class, $response);
+        $this->assertFalse($response->isSuccessful());
+        $this->assertFalse($response->isPending());
+        $this->assertFalse($response->isRedirect());
+        $this->assertNotNull($response->getErrorCode());
+        $this->assertNotNull($response->getMessage());
+    }
 
     private function getOptionsForAuthorize()
     {

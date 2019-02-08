@@ -57,9 +57,22 @@ class Response extends AbstractResponse
         return $this->headers;
     }
 
+    public function getErrorCode()
+    {
+        if ($this->isSuccessful()) {
+            return null;
+        }
+
+        return $this->getDataField('error.code');
+    }
+
     public function getMessage()
     {
-        return $this->getDataField('state');
+        if ($this->isSuccessful()) {
+            return $this->getDataField('state');
+        } else {
+            return $this->getDataField('error.message');
+        }
     }
 
     protected function getHeader($field)

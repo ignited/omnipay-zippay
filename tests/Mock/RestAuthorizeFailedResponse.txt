@@ -1,0 +1,15 @@
+HTTP/1.1 400
+status: 400
+Date: Fri, 08 Feb 2019 00:28:42 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Frame-Options: deny
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=2592000; includeSubDomains; preload
+Expect-CT: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+Server: cloudflare
+CF-RAY: 4a59fa4cbe38655d-SYD
+
+{"error":{"code":"request_invalid","message":"There are errors with the request, please see error items for more detail","details":[{"name":"Order.Shipping","message":"Order's shipping address cannot be empty"}]}}
