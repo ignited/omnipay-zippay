@@ -66,6 +66,15 @@ class Response extends AbstractResponse
         return $this->getDataField('error.code');
     }
 
+    public function getErrorDetails()
+    {
+        if ($this->isSuccessful()) {
+            return null;
+        }
+
+        return $this->getDataField('error.details');
+    }
+
     public function getMessage()
     {
         if ($this->isSuccessful()) {
