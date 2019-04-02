@@ -60,7 +60,7 @@ abstract class AbstractRequest extends BaseAbstractRequest
 
         $responseHeaders = $response->getHeaders();
 
-        $data = $response->json();
+        $data = json_decode($response->getBody(), true);
 
         return $this->createResponse($data, $responseHeaders, $response->getStatusCode());
     }
