@@ -54,11 +54,13 @@ abstract class AbstractRequest extends BaseAbstractRequest
             $body = json_encode($data);
         }
 
-        $response = $this->httpClient->request($this->getHttpMethod(), $url, $headers, $body);
+        $method = $this->getHttpMethod();
+
+        $response = $this->httpClient->{$method}($url, $headers, $body)->send();
 
         $responseHeaders = $response->getHeaders();
 
-        $data = json_decode($response->getBody(), true);
+        $data = $response->json();
 
         return $this->createResponse($data, $responseHeaders, $response->getStatusCode());
     }
