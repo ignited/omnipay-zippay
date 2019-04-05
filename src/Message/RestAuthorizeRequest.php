@@ -21,51 +21,81 @@ class RestAuthorizeRequest extends AbstractRequest
         return 'POST';
     }
 
+    /**
+     * @return string
+     */
     public function getFirstName()
     {
         return $this->getCard()->getFirstName();
     }
 
+    /**
+     * @param $value
+     */
     public function setFirstName($value)
     {
         return $this->getCard()->setFirstName($value);
     }
 
+    /**
+     * @return string
+     */
     public function getLastName()
     {
         return $this->getCard()->getLastName();
     }
 
+    /**
+     * @param $value
+     */
     public function setLastName($value)
     {
         return $this->getCard()->setLastName($value);
     }
 
+    /**
+     * @return string
+     */
     public function getEmail()
     {
         return $this->getCard()->getEmail();
     }
 
+    /**
+     * @param $value
+     */
     public function setEmail($value)
     {
         return $this->getCard()->setEmail($value);
     }
 
+    /**
+     * @return string
+     */
     public function getReference()
     {
         return $this->getParameter('reference');
     }
 
+    /**
+     * @param $value
+     */
     public function setReference($value)
     {
         return $this->setParameter('reference', $value);
     }
 
+    /**
+     * @return string
+     */
     public function getMeta()
     {
         return $this->getParameter('meta');
     }
 
+    /**
+     * @param $value
+     */
     public function setMeta($value)
     {
         return $this->setParameter('meta', $value);
@@ -76,6 +106,9 @@ class RestAuthorizeRequest extends AbstractRequest
         return !empty($this->getMeta());
     }
 
+    /**
+     * @return array
+     */
     public function getData()
     {
         $this->validate(
@@ -113,17 +146,28 @@ class RestAuthorizeRequest extends AbstractRequest
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getOrder()
     {
-        return [
+        $data = [
             'reference' => $this->getReference(),
             'amount' => $this->getAmount(),
             'currency' => $this->getCurrency(),
             'shipping' => $this->getOrderShippingDetails(),
-            'items' => $this->getOrderItems(),
         ];
+
+        if ($this->getOrderItems()) {
+            $data['items'] = $this->getOrderItems();
+        }
+
+        return $data;
     }
 
+    /**
+     * @return array
+     */
     public function getOrderItems()
     {
         $data = [];
@@ -138,6 +182,9 @@ class RestAuthorizeRequest extends AbstractRequest
         return $data;
     }
 
+    /**
+     * @param ItemInterface $item
+     */
     protected function convertItemToItemData(ItemInterface $item)
     {
         return [
@@ -164,46 +211,76 @@ class RestAuthorizeRequest extends AbstractRequest
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getMetaData()
     {
         return $this->getMeta();
     }
 
+    /**
+     * @return string
+     */
     public function getBillingAddressLine1()
     {
         return $this->getCard()->getBillingAddress1();
     }
 
+    /**
+     * @return string
+     */
     public function getBillingAddressCity()
     {
         return $this->getCard()->getBillingCity();
     }
 
+    /**
+     * @return string
+     */
     public function getBillingAddressState()
     {
         return $this->getCard()->getBillingState();
     }
 
+    /**
+     * @return string
+     */
     public function getBillingAddressPostalCode()
     {
         return $this->getCard()->getBillingPostcode();
     }
 
+    /**
+     * @return string
+     */
     public function getBillingAddressCountry()
     {
         return $this->getCard()->getBillingCountry();
     }
 
+    /**
+     * @return string
+     */
     public function getBillingAddressFirstName()
     {
         return $this->getCard()->getBillingFirstName();
     }
 
+    /**
+     * @return string
+     */
     public function getBillingAddressLastName()
     {
         return $this->getCard()->getBillingLastName();
     }
 
+    /**
+     * @param $data
+     * @param array $headers
+     * @param $status
+     * @return RestAuthorizeResponse
+     */
     protected function createResponse($data, $headers = [], $status = 404)
     {
         return $this->response = new RestAuthorizeResponse($this, $data, $headers, $status);
