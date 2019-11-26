@@ -2,6 +2,7 @@
 namespace Omnipay\ZipPay\Message;
 
 use Omnipay\ZipPay\ItemInterface;
+use Omnipay\ZipPay\ItemTypeInterface;
 use Omnipay\ZipPay\Message\RestAuthorizeResponse;
 
 /**
@@ -144,7 +145,7 @@ class RestAuthorizeRequest extends AbstractRequest
             'name' => $item->getName(),
             'amount' => $item->getQuantity() * $this->formatCurrency($item->getPrice()),
             'quantity' => $item->getQuantity(),
-            'type' => 'sku',
+            'type' => $item instanceof ItemTypeInterface ? $item->getType() : 'sku',
             'reference' => $item->getReference(),
             'image_uri' => $item->getImageUri(),
         ];
