@@ -27,7 +27,50 @@ The following gateways are provided by this package:
 
  * ZipPay
 
-For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay) repository.
+For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay) repository.\
+
+
+A quick example looks something like this:
+
+Process your Authorization
+```php
+$omniZip = Omnipay::create('ZipPay_Rest');
+$omniZip->setApiKey($zipApiKey);
+$authTx = $omniZip->authorize([
+  'reference'=> $ref,
+  'amount' => 10.00,
+  'currency' => 'AUD',
+  'returnUrl' => 'https://mysite.com/zip/return',
+  'card' => $this->OmniPayCardFactory(), //Customers Details, no credit card number
+  'items' => $this->zipItemList(), // Array of items implementing Omnipay\ZipPay\ItemInterface   
+]);
+$result = $authTx->send();
+if($response->isRedirect()) { // Authorize worked
+  $resData = $result->getData();
+  $this->saveAuthorizeId($resData['id']);
+  $response->redirect(); //Sends customer off to ZipPay to complete signup
+}
+```
+
+Return url (eg /zip/return)
+```php
+if (!isset($_REQUEST['result']) || $_REQUEST['result'] !== 'approved') 
+  throw new \RuntimeError('Problem with your authorization');
+$omniZip = Omnipay::create('ZipPay_Rest');
+$omniZip->setApiKey($zipApiKey);
+$compTx = $omniZip->completeAuthorize([
+  'authorityType' => 'checkout_id',
+  'authorityValue' => $this->getAuthorizeId(),
+  'amount' => 10.00,
+  'currency' => 'AUD',
+  'captureFunds' => true;
+]);
+$result = $compTx->send();
+if($result->isSuccessful())
+  $this->paid();
+else
+  $this->paymentFailed();
+```
 
 ## Support
 
