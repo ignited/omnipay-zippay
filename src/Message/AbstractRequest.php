@@ -13,6 +13,8 @@ abstract class AbstractRequest extends BaseAbstractRequest
     protected $liveEndpoint = 'https://api.zipmoney.com.au/merchant/v1';
     protected $testEndpoint = 'https://api.sandbox.zipmoney.com.au/merchant/v1';
 
+    protected $negativeAmountAllowed = true;
+
     public function getKey()
     {
         return $this->getParameter('key');
