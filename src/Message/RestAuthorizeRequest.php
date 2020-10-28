@@ -143,7 +143,7 @@ class RestAuthorizeRequest extends AbstractRequest
     {
         return [
             'name' => $item->getName(),
-            'amount' => $item->getQuantity() * $this->formatCurrency($item->getPrice()),
+            'amount' => $this->formatCurrency($item->getPrice()),
             'quantity' => $item->getQuantity(),
             'type' => $item instanceof ItemTypeInterface ? $item->getType() : 'sku',
             'reference' => $item->getReference(),
