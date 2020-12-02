@@ -77,6 +77,11 @@ class RestAuthorizeRequest extends AbstractRequest
         return !empty($this->getMeta());
     }
 
+    public function hasShippingAddress()
+    {
+        return !empty($this->getShippingAddressLine1());
+    }
+
     public function getData()
     {
         $this->validate(
@@ -153,9 +158,25 @@ class RestAuthorizeRequest extends AbstractRequest
 
     public function getOrderShippingDetails()
     {
-        return [
+        $shippingDetails = [
             'pickup' => true,
         ];
+        // Check for a shipping address and set pickup to `false` and add the address
+        // details if one has been supplied.
+        if ($this->hasShippingAddress()) {
+            $shippingDetails = [
+                'pickup' => false,
+                'address' => [
+                    'line1' => $this->getShippingAddressLine1(),
+                    'line2' => $this->getShippingAddressLine2(),
+                    'city' => $this->getShippingAddressCity(),
+                    'state' => $this->getShippingAddressState(),
+                    'postal_code' => $this->getShippingAddressPostalCode(),
+                    'country' => $this->getShippingAddressCountry(),
+                ],
+            ];
+        }
+        return $shippingDetails;
     }
 
     public function getConfig()
@@ -203,6 +224,36 @@ class RestAuthorizeRequest extends AbstractRequest
     public function getBillingAddressLastName()
     {
         return $this->getCard()->getBillingLastName();
+    }
+
+    public function getShippingAddressLine1()
+    {
+        return $this->getCard()->getShippingAddress1();
+    }
+
+    public function getShippingAddressLine2()
+    {
+        return $this->getCard()->getShippingAddress2();
+    }
+
+    public function getShippingAddressCity()
+    {
+        return $this->getCard()->getShippingCity();
+    }
+
+    public function getShippingAddressState()
+    {
+        return $this->getCard()->getShippingState();
+    }
+
+    public function getShippingAddressPostalCode()
+    {
+        return $this->getCard()->getShippingPostcode();
+    }
+
+    public function getShippingAddressCountry()
+    {
+        return $this->getCard()->getShippingCountry();
     }
 
     protected function createResponse($data, $headers = [], $status = 404)
