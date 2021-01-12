@@ -77,9 +77,14 @@ class RestAuthorizeRequest extends AbstractRequest
         return !empty($this->getMeta());
     }
 
-    public function hasShippingAddress()
+    public function getHasShippingAddress()
     {
-        return !empty($this->getShippingAddressLine1());
+        return $this->getParameter('hasShippingAddress');
+    }
+
+    public function setHasShippingAddress($value)
+    {
+        return $this->setParameter('hasShippingAddress', $value);
     }
 
     public function getData()
@@ -161,9 +166,9 @@ class RestAuthorizeRequest extends AbstractRequest
         $shippingDetails = [
             'pickup' => true,
         ];
-        // Check for a shipping address and set pickup to `false` and add the address
-        // details if one has been supplied.
-        if ($this->hasShippingAddress()) {
+        // Check if a shipping address has supposedly been supplied and, if so, set pickup
+        // to `false` and add the address details.
+        if ($this->getHasShippingAddress()) {
             $shippingDetails = [
                 'pickup' => false,
                 'address' => [
